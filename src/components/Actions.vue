@@ -32,13 +32,25 @@
             inputUpdate(files) {
                 // console.log('update');
                 // this.$store.commit("updatePhotos", files);
+                setTimeout(()=>{
+                    
+                    this.$store.dispatch('getPhoto');
+                    let objDiv = document.getElementById('block_images');
+                    objDiv.scrollTop = objDiv.scrollHeight;
+
+                },1000)
             },
 
             inputFile(newFile, oldFile) {
+
+                console.log(newFile && !oldFile)
+                console.log(newFile && oldFile)
+
                 if (newFile && !oldFile) {
-                    // Add file
-                }
-                if (newFile && oldFile) {
+
+                    // add
+
+                    /*
                     if (newFile.active !== oldFile.active) {
                         if (newFile.size >= 0 && newFile.size < 100 * 1024) {
                             newFile = this.$refs.upload.update(newFile, {error: 'size'})
@@ -61,6 +73,37 @@
                         },2000)
 
                     }
+                    */
+
+
+                }
+                if (newFile && oldFile) {
+                    
+                    /*
+                    if (newFile.active !== oldFile.active) {
+                        if (newFile.size >= 0 && newFile.size < 100 * 1024) {
+                            newFile = this.$refs.upload.update(newFile, {error: 'size'})
+                        }
+                    }
+                    if (newFile.progress !== oldFile.progress) {
+                        // console.log('progress', newFile.progress, newFile)
+                    }
+                    if (newFile.error !== oldFile.error) {
+                        // console.log('error', newFile.error, newFile)
+                    }
+                    if (newFile.success !== oldFile.success) {
+                        console.log('success', newFile.success, newFile)
+
+                        this.$store.dispatch('getPhoto');
+
+                        setTimeout(()=>{
+                            let objDiv = document.getElementById('block_images');
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        },2000)
+
+                    }
+                    */
+
                 }
                 if (!newFile && oldFile) {
                     if (oldFile.success && oldFile.response.id) {
@@ -69,9 +112,11 @@
                 }
                 // Automatic upload
                 if (Boolean(newFile) !== Boolean(oldFile) || oldFile.error !== newFile.error) {
+
                     if (!this.$refs.upload.active) {
                         this.$refs.upload.active = true
                     }
+
                 }
 
             }
