@@ -90,6 +90,7 @@ export default new Vuex.Store({
         }
 
     },
+    
     actions: {
         //получить все значения
         getItems({commit, state}) {
