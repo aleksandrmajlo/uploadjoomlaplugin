@@ -13,7 +13,6 @@ export default new Vuex.Store({
         // фото и путь
         images: [],
         path: "",
-
         // успех сохранения
         succes: false
     },
@@ -29,6 +28,7 @@ export default new Vuex.Store({
         add_groups(state) {
             state.groups.push({
                 title: "",
+                tooltip:"",
                 items: [],
                 sort:state.groups.length+1
             });
@@ -37,12 +37,14 @@ export default new Vuex.Store({
         removeGroup(state, data) {
             state.groups.splice(data.ind, 1);
         },
-
         // заголовок группы
         setTitle(state, data) {
             state.groups[data.ind].title = data.val;
         },
-
+        // установить подсказку
+        setTooltip(state, data) {
+            state.groups[data.ind].tooltip = data.val;
+        },
         // добавление фото в группу c менеджера файлов
         addPhotogroup(state, data) {
             state.groups[state.active_ind].items.push({
@@ -51,7 +53,6 @@ export default new Vuex.Store({
                 sort:state.groups[state.active_ind].items.length+1
             });
         },
-
         // удалить фото из группы
         removePhotoinGroup(state, data) {
             state.groups[data.ind].items.splice(data.key, 1);
@@ -61,13 +62,11 @@ export default new Vuex.Store({
         setPhotoTitle(state, data) {
             Vue.set(state.groups[data.ind].items[data.key], 'title', data.v)
         },
-
         // добавление элемент фото в группу
         addItem(state, ind) {
             state.active_ind = ind;
             state.show_dir = true;
         },
-
         //закрытия окна
         close(state) {
             state.show_dir = false;
@@ -96,11 +95,7 @@ export default new Vuex.Store({
         getItems({commit, state}) {
             let uniq_param= (new Date()).getTime();
             Vue.axios
-                .get(process.env.VUE_APP_ENV_AJAX_ITEMS + "?action=get&page_id=" + state.page_id+"&uniq_param="+uniq_param, {
-                    headers: {
-                        // 'Content-Type' : 'application/x-www-form-urlencoded'
-                    }
-                })
+                .get(process.env.VUE_APP_ENV_AJAX_ITEMS + "?action=get&page_id=" + state.page_id+"&uniq_param="+uniq_param, {})
                 .then(response => {
                     if (response.data) {
                         this.commit("addItemsDefault", response.data);
@@ -113,9 +108,7 @@ export default new Vuex.Store({
             let uniq_param= (new Date()).getTime();
             Vue.axios
                 .get(process.env.VUE_APP_ENV_AJAX + "?action=get_catalog&=uniq_param="+uniq_param, {
-                    headers: {
-                        // 'Content-Type' : 'application/x-www-form-urlencoded'
-                    }
+
                 })
                 .then(response => {
                     this.commit("setPhoto_path_default", response.data);
@@ -133,9 +126,6 @@ export default new Vuex.Store({
             };
             Vue.axios(options).then(response => {
                 this.dispatch('getPhoto')
-                // if (response.data.suc) {
-                    // state.images.splice(data, 1);
-                // }
             });
         },
 

@@ -1,24 +1,19 @@
 <template>
-
     <div class="dir">
          <transition name="fade">
             <div class="response" v-show="response" >
                Добалено
             </div>
          </transition>
-
         <div class="panel-header">
             <div @click="close"  class="close_app">
                 <v-icon name="times-circle" scale="1.5" />
             </div>
             <div class="title">Файловый менеджер</div>
         </div>
-
         <Actions/>
-
         <div class="block_images" id="block_images">
             <div class="images">
-
                 <div class="image" v-for="(item,key) in $store.state.images" :key="key">
                     <div class="wrap_image">
                         <span class="trash-alt" @click="removeFile(item,key)">
@@ -38,28 +33,22 @@
                                 </span>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
-
         <div class="panel-header">
             <br/>
         </div>
     </div>
-
 </template>
 <script>
     import Actions from "./Actions.vue";
-
     export default {
         data (){
             return {
                 response:false
             }
         },
-
         components: {
             Actions
         },
@@ -89,15 +78,14 @@
         width: 100%;
         min-height: 500px;
         left: 0;
-        // top: -300px;
         bottom: 0;
-        
         z-index: 1000;
         background: azure;
-        overflow: hidden;
+        /*overflow: hidden;*/
+        resize: both;
+        overflow: auto;
         .response{
              position: fixed;
-             z-index: 100000; 
              top:100px;
              right: 10px;
              background: #fff;
@@ -123,7 +111,6 @@
                 color:#fff;
             }
         }
-
         .block_images {
             position: relative;
             overflow-y: scroll;
@@ -132,14 +119,13 @@
             padding-bottom: 40px;
             min-height: 100%;
         }
-
         .images {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content:  space-around;
             .image {
-                width: 20%;
+                width: 33%;
                 .wrap_image{
                   border:1px solid;
                   padding: 10px;
@@ -183,7 +169,6 @@
                 }
            }
         }
-        
     }
 </style>
 

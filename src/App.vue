@@ -62,7 +62,6 @@
         }
     };
 </script>
-
 <style lang="scss">
     #app {
         width: 100%;

@@ -1,0 +1,86 @@
+.uploadproductfile_wrap.notvisible {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s; }
+.uploadproductfile_wrap_item {
+  margin-bottom: 20px; }
+  .uploadproductfile_wrap_item_title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px; }
+.uploadproductfile_imgs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between; }
+  .uploadproductfile_imgs_item {
+    width: 33.3333%;
+    box-sizing: border-box; }
+    .uploadproductfile_imgs_item_wrap {
+      padding: 5px;
+      margin: 5px;
+      border: 2px solid;
+      border-radius: 5px; }
+    .uploadproductfile_imgs_item_image {
+      margin-bottom: 10px; }
+      .uploadproductfile_imgs_item_image img {
+        max-width: 100%;
+        height: auto; }
+    .uploadproductfile_imgs_item_title {
+      text-align: center;
+      font-weight: bold; }
+    .uploadproductfile_imgs_item .questionWrap {
+      text-align: center; }
+      .uploadproductfile_imgs_item .questionWrap .questionCont {
+        position: relative;
+        width: 100%;
+        text-align: center; }
+        .uploadproductfile_imgs_item .questionWrap .questionCont .questionText {
+          visibility: hidden;
+          width: 100%;
+          background-color: #1D8A3B;
+          color: #fff;
+          text-align: center;
+          padding: 5px 0;
+          border-radius: 6px;
+          position: absolute;
+          z-index: 1;
+          bottom: 125%;
+          left: 0;
+          opacity: 0;
+          transition: opacity 0.3s; }
+          .uploadproductfile_imgs_item .questionWrap .questionCont .questionText:after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent; }
+        .uploadproductfile_imgs_item .questionWrap .questionCont:hover .questionText {
+          visibility: visible;
+          opacity: 1; }
+  .uploadproductfile_imgs_item.hidden {
+    display: none; }
+  .uploadproductfile_imgs_item.active > div {
+    border: 2px solid blue; }
+  .uploadproductfile_imgs .ShowButtonConteer {
+    width: 100%;
+    text-align: center; }
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto; }
+  .white-popup .photoConteer img {
+    max-width: 100%;
+    height: auto; }
+  .white-popup .textBlock {
+    display: flex;
+    justify-content: space-between; }
+
+/*# sourceMappingURL=vmcustom.css.map */

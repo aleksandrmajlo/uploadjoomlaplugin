@@ -3,26 +3,31 @@
        <span class="trash-alt" @click="removeGroup">
               <v-icon name="trash-alt"/>
         </span>
-
         <div class="input">
             <strong>Название:</strong>
-            <input type="text" class="input_title" @input="setTitle" :value="title">
+            <input type="text" placeholder="title" class="input_title" @input="setTitle" :value="title">
+            <br>
         </div>
-
+        <div class="input">
+            <strong>Подсказка:</strong>
+            <input type="text"  placeholder="tooltip" class="input_title" @input="setTooltip" :value="tooltip">
+        </div>
         <draggable class="items" v-model="items" :options="{draggable:'.item'}">
                 <div v-for="(item,key) in items" :key="item.sort" class="item">
                     <div class="wrap_item">
-
                     <span class="trash-alt" @click="removePhoto(key)">
                        <v-icon name="trash-alt"/>
                     </span>
-
                         <div class="photo">
                             <img :src="$store.state.path+item.photo">
                         </div>
                         <div class="name">
-                            <input type="text" :value="item.title" @input="setPhotoTitle($event,key)">
+                            <input type="text" placeholder="title" :value="item.title" @input="setPhotoTitle($event,key)">
                         </div>
+<!--                        <div class="name">-->
+<!--                            <input type="text" placeholder="tooltip" :value="item.tooltip" @input="setPhotoTooltip($event,key)">-->
+<!--                        </div>-->
+
                     </div>
                 </div>
         </draggable>
@@ -32,19 +37,22 @@
     </div>
 </template>
 <script>
-
     import draggable from 'vuedraggable'
-
     export default {
         props: ["ind"],
         components: {
             draggable,
         },
         computed: {
+
             title() {
-                console.log(this.ind)
                 return this.$store.state.groups[this.ind].title;
             },
+
+            tooltip() {
+                return this.$store.state.groups[this.ind].tooltip;
+            },
+
             items: {
                 get() {
                     return this.$store.state.groups[this.ind].items;
@@ -56,21 +64,23 @@
                     })
                 }
             },
-
         },
         methods: {
-
             // устанавливаем название группы
             setTitle(event) {
                 let v = event.target.value;
                 this.$store.commit("setTitle", {val: v, ind: this.ind});
             },
-
+            // установить подсказку
+            setTooltip(event) {
+                let v = event.target.value;
+                this.$store.commit("setTooltip", {val: v, ind: this.ind});
+                console.log(v)
+            },
             // добавление - открытие менеджера файлов
             addItem() {
                 this.$store.commit("addItem", this.ind);
             },
-
             // удалить фото
             removePhoto(key) {
                 this.$store.commit("removePhotoinGroup", {
@@ -88,6 +98,7 @@
                     key: key
                 })
             },
+
             // удалить полностью группу
             removeGroup() {
                 this.$store.commit('removeGroup', {
@@ -150,7 +161,7 @@
             flex-wrap: wrap;
             align-items: flex-start;
             .item {
-                width: 20%;
+                width: 25%;
                 position: relative;
                 .wrap_item {
                     border: 1px solid;
@@ -169,6 +180,7 @@
                         }
                     }
                     .name {
+                        margin-bottom: 5px;
                         input {
                             min-width: inherit;
                         }
