@@ -10,34 +10,34 @@
         </div>
         <div class="input">
             <strong>Подсказка:</strong>
-            <input type="text"  placeholder="tooltip" class="input_title" @input="setTooltip" :value="tooltip">
+            <input type="text" placeholder="tooltip" class="input_title" @input="setTooltip" :value="tooltip">
         </div>
         <draggable class="items" v-model="items" :options="{draggable:'.item'}">
-                <div v-for="(item,key) in items" :key="item.sort" class="item">
-                    <div class="wrap_item">
+            <div v-for="(item,key) in items" :key="item.sort" class="item">
+                <div class="wrap_item">
                     <span class="trash-alt" @click="removePhoto(key)">
                        <v-icon name="trash-alt"/>
                     </span>
-                        <div class="photo">
-                            <img :src="$store.state.path+item.photo">
-                        </div>
-                        <div class="name">
-                            <input type="text" placeholder="title" :value="item.title" @input="setPhotoTitle($event,key)">
-                        </div>
-<!--                        <div class="name">-->
-<!--                            <input type="text" placeholder="tooltip" :value="item.tooltip" @input="setPhotoTooltip($event,key)">-->
-<!--                        </div>-->
-
+                    <div class="photo">
+                        <img :src="$store.state.path+item.photo">
+                    </div>
+                    <div class="name">
+                        <input type="text" placeholder="title" :value="item.title" @input="setPhotoTitle($event,key)">
                     </div>
                 </div>
+            </div>
         </draggable>
-        <div class="addItem" @click="addItem">
-            <span>+</span>
+        <div class="ButtonConteer">
+            <div class="addItem" @click="addItem">
+                <span>+</span>
+            </div>
         </div>
     </div>
 </template>
 <script>
     import draggable from 'vuedraggable'
+
+
     export default {
         props: ["ind"],
         components: {
@@ -125,13 +125,15 @@
         .input {
             text-align: center;
             margin-bottom: 20px;
+
             strong {
                 display: inline-block;
                 margin-right: 20px;
             }
         }
+
         .addItem {
-            margin-top: 10px;
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -140,29 +142,32 @@
             min-height: 50px;
             text-overflow: ellipsis;
             background: #0199d9;
-            -webkit-box-shadow: 0 0 9px 4px rgba(0, 0, 0, 0.5) inset,
-            4px 4px 8px 2px rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.81);
-            box-shadow: 0 0 9px 4px rgba(0, 0, 0, 0.5) inset,
-            4px 4px 8px 2px rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.81);
+            -webkit-box-shadow: 0 0 9px 4px rgba(0, 0, 0, 0.5) inset, 4px 4px 8px 2px rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.81);
+            box-shadow: 0 0 9px 4px rgba(0, 0, 0, 0.5) inset, 4px 4px 8px 2px rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.81);
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
             cursor: pointer;
+
             span {
                 color: blanchedalmond;
                 font-size: 40px;
                 font-weight: bolder;
             }
         }
+
         [type="text"] {
             padding: 6px 12px;
             min-width: 300px;
         }
+
         .items {
             display: flex;
             flex-wrap: wrap;
             align-items: flex-start;
+
             .item {
                 width: 25%;
                 position: relative;
+
                 .wrap_item {
                     border: 1px solid;
                     padding: 10px;
@@ -172,15 +177,19 @@
                     border-radius: 10px;
                     position: relative;
                     text-align: center;
+
                     .photo {
                         margin-bottom: 10px;
+
                         img {
                             max-width: 100%;
                             height: auto;
                         }
                     }
+
                     .name {
                         margin-bottom: 5px;
+
                         input {
                             min-width: inherit;
                         }
@@ -188,6 +197,11 @@
                 }
             }
         }
+    }
+
+    .ButtonConteer {
+        display: flex;
+        margin-top: 50px;
     }
 </style>
 

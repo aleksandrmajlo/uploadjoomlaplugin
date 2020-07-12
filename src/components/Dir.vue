@@ -1,17 +1,21 @@
 <template>
     <div class="dir">
-         <transition name="fade">
-            <div class="response" v-show="response" >
-               Добалено
+        <transition name="fade">
+            <div class="response" v-show="response">
+                Добалено
             </div>
-         </transition>
+        </transition>
         <div class="panel-header">
-            <div @click="close"  class="close_app">
-                <v-icon name="times-circle" scale="1.5" />
+            <div @click="close" class="close_app">
+                <v-icon name="times-circle" scale="1.5"/>
             </div>
             <div class="title">Файловый менеджер</div>
         </div>
-        <Actions/>
+        <div class="panel-actions">
+            <div class="wrap_panel">
+                <Actions/>
+            </div>
+        </div>
         <div class="block_images" id="block_images">
             <div class="images">
                 <div class="image" v-for="(item,key) in $store.state.images" :key="key">
@@ -19,6 +23,7 @@
                         <span class="trash-alt" @click="removeFile(item,key)">
                             <v-icon name="trash-alt"/>
                         </span>
+
                         <div class="photo">
                             <img :src=" $store.state.path+item">
                         </div>
@@ -27,7 +32,7 @@
                         </div>
                         <div class="addGroups_wrap" v-if="$store.state.active_ind||$store.state.active_ind===0">
                                 <span class="addGroups" @click="addGroups(item,key)"> 
-                                    <v-icon name="plus-circle" />
+                                    <v-icon name="plus-circle"/>
                                     <span>в группу </span> 
                                     <strong>{{$store.state.groups[$store.state.active_ind].title}}</strong>
                                 </span>
@@ -43,28 +48,30 @@
 </template>
 <script>
     import Actions from "./Actions.vue";
+    // import ActionFast from "./ActionFast";
     export default {
-        data (){
+        data() {
             return {
-                response:false
+                response: false
             }
         },
         components: {
-            Actions
+            Actions,
+            // ActionFast
         },
         mounted() {
             this.$store.dispatch('getPhoto')
         },
         methods: {
-            removeFile(item,key) {
-                this.$store.dispatch('removePhoto',{key:key,item:item})
+            removeFile(item, key) {
+                this.$store.dispatch('removePhoto', {key: key, item: item})
             },
-            addGroups(item,key) {
-                this.response=true;
+            addGroups(item, key) {
+                this.response = true;
                 setTimeout(() => {
-                    this.response=false;
-                },2000 );
-                this.$store.commit('addPhotogroup',{key:key,item:item})
+                    this.response = false;
+                }, 2000);
+                this.$store.commit('addPhotogroup', {key: key, item: item})
             },
             close() {
                 this.$store.commit("close");
@@ -84,33 +91,37 @@
         /*overflow: hidden;*/
         resize: both;
         overflow: auto;
-        .response{
-             position: fixed;
-             top:100px;
-             right: 10px;
-             background: #fff;
-             min-width: 200px;
-             padding: 10px;
-             text-align: center;
-             border:10px;
-             z-index: 30;
-             -webkit-box-shadow: 0 0 6px 2px rgba(0,0,0,0.5) ;
-             box-shadow: 0 0 6px 2px rgba(0,0,0,0.5) ;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.2) ;
+
+        .response {
+            position: fixed;
+            top: 100px;
+            right: 10px;
+            background: #fff;
+            min-width: 200px;
+            padding: 10px;
+            text-align: center;
+            border: 10px;
+            z-index: 30;
+            -webkit-box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
+
         .panel-header {
             position: relative;
             padding: 8px;
             background: #0381cb;
             color: #fff;
+
             .close_app {
                 cursor: pointer;
                 position: absolute;
                 right: 10px;
                 top: 5px;
-                color:#fff;
+                color: #fff;
             }
         }
+
         .block_images {
             position: relative;
             overflow-y: scroll;
@@ -119,36 +130,44 @@
             padding-bottom: 40px;
             min-height: 100%;
         }
+
         .images {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content:  space-around;
+            justify-content: space-around;
+
             .image {
                 width: 33%;
-                .wrap_image{
-                  border:1px solid;
-                  padding: 10px;
-                  padding-top:25px;
-                  margin: 10px;
-                  box-sizing: border-box;
-                  border-radius:10px; 
-                  position: relative;
-                  background: #fff;
+
+                .wrap_image {
+                    border: 1px solid;
+                    padding: 10px;
+                    padding-top: 25px;
+                    margin: 10px;
+                    box-sizing: border-box;
+                    border-radius: 10px;
+                    position: relative;
+                    background: #fff;
                 }
+
                 .photo {
                     img {
                         max-width: 100%;
                         height: auto;
                     }
+
                     margin-bottom: 10px;
                 }
+
                 .name {
                     text-align: center;
                     margin-bottom: 10px;
                 }
+
                 .actions {
                     text-align: center;
+
                     label {
                         font-weight: bold;
                         display: inline-block;
@@ -158,17 +177,34 @@
 
             }
         }
-        .addGroups_wrap{
-           .addGroups{
+
+        .addGroups_wrap {
+            .addGroups {
                 cursor: pointer;
-                display:flex;
+                display: flex;
                 align-items: center;
-                &>*{
+
+                & > * {
                     display: inline-block;
-                    margin-right: 5px; 
+                    margin-right: 5px;
                 }
-           }
+            }
         }
+    }
+
+    .panel-actions {
+        box-sizing: border-box;
+        z-index: 10;
+        padding: 10px;
+        -webkit-box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3);
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+
+        .wrap_panel {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
     }
 </style>
 

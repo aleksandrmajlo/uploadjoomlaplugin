@@ -12,7 +12,7 @@
             <div class="app-groups">
                 <draggable class="items" v-model="items" :options="{draggable:'.group_item'}" >
                     <div v-for="(value, key) in items"  :key="value.sort" class="group_item ">
-                        <Group  :ind="key"></Group>
+                        <Group  :ind="key" :key="key"></Group>
                     </div>
                 </draggable>
             </div>

@@ -8,7 +8,7 @@ export default new Vuex.Store({
         page_id: page_id,
         // группы
         groups: [],
-        active_ind: false,
+        active_ind: false,// активная группа
         show_dir: false,
         // фото и путь
         images: [],
@@ -45,6 +45,7 @@ export default new Vuex.Store({
         setTooltip(state, data) {
             state.groups[data.ind].tooltip = data.val;
         },
+
         // добавление фото в группу c менеджера файлов
         addPhotogroup(state, data) {
             state.groups[state.active_ind].items.push({
@@ -53,6 +54,20 @@ export default new Vuex.Store({
                 sort:state.groups[state.active_ind].items.length+1
             });
         },
+
+        // добавление фото в группу c кнопки быстрой загрузки
+        addPhotogroupFast(state, data) {
+            // let ind=parseInt(data.ind)
+            // console.log('data')
+            // console.log(data)
+            state.groups[state.active_ind].items.push({
+                photo: data.item,
+                title: data.title,
+                sort:state.groups[state.active_ind].items.length+1
+            });
+        },
+
+
         // удалить фото из группы
         removePhotoinGroup(state, data) {
             state.groups[data.ind].items.splice(data.key, 1);
@@ -61,6 +76,11 @@ export default new Vuex.Store({
         // установить название фото
         setPhotoTitle(state, data) {
             Vue.set(state.groups[data.ind].items[data.key], 'title', data.v)
+        },
+        //активная группа
+        setActiveGroup(state, ind){
+            console.log(ind+" ind")
+            state.active_ind = ind;
         },
         // добавление элемент фото в группу
         addItem(state, ind) {
@@ -71,18 +91,15 @@ export default new Vuex.Store({
         close(state) {
             state.show_dir = false;
         },
-
         // установка фото
         setPhoto_path_default(state, data) {
             state.images = data.images;
             state.path = data.path;
         },
-
         // сортировка  группы
         updateSortGroup(state,value ){
             state.groups=value;
         },
-
         // сортировка в группе
         updateSortItemsinGroup(state,date){
             state.groups[date.ind].items=date.value;
@@ -91,6 +108,7 @@ export default new Vuex.Store({
     },
     
     actions: {
+     
         //получить все значения
         getItems({commit, state}) {
             let uniq_param= (new Date()).getTime();
@@ -114,6 +132,7 @@ export default new Vuex.Store({
                     this.commit("setPhoto_path_default", response.data);
                 });
         },
+     
         // удаление фотки
         removePhoto({commit, state}, data) {
             let formdata = new FormData();
